@@ -84,10 +84,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: '/login',
-        builder: (context, state) {
-          final role = state.extra as UserRole?;
-          return LoginScreen(role: role);
-        },
+        builder: (context, state) => const LoginScreen(),
       ),
       GoRoute(
         path: '/signup',
