@@ -137,9 +137,9 @@ class ParentDashboard extends ConsumerWidget {
                 icon: Icons.school,
                 title: 'Enrollments',
                 subtitle: 'Manage course enrollments',
-                color: Colors.blue,
+                color: Colors.grey.shade700,
                 onTap: () {
-                  // TODO: Navigate to enrollments
+                  context.go('/parent/enrollments');
                 },
               ),
               _buildActionCard(
@@ -147,9 +147,9 @@ class ParentDashboard extends ConsumerWidget {
                 icon: Icons.assessment,
                 title: 'Reports',
                 subtitle: 'View progress reports',
-                color: Colors.green,
+                color: Colors.grey.shade700,
                 onTap: () {
-                  // TODO: Navigate to reports
+                  context.go('/parent/reports');
                 },
               ),
               _buildActionCard(
@@ -157,9 +157,9 @@ class ParentDashboard extends ConsumerWidget {
                 icon: Icons.payment,
                 title: 'Payments',
                 subtitle: 'Manage payments',
-                color: Colors.orange,
+                color: Colors.grey.shade700,
                 onTap: () {
-                  // TODO: Navigate to payments
+                  context.go('/parent/payments');
                 },
               ),
               _buildActionCard(
@@ -167,9 +167,9 @@ class ParentDashboard extends ConsumerWidget {
                 icon: Icons.notifications,
                 title: 'Alerts',
                 subtitle: 'View notifications',
-                color: Colors.red,
+                color: Colors.grey.shade700,
                 onTap: () {
-                  // TODO: Navigate to alerts
+                  context.go('/parent/alerts');
                 },
               ),
             ],

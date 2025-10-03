@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:private_classes_app/screens/splash_screen.dart';
+import 'package:noota/screens/splash_screen.dart';
 
 void main() {
   testWidgets('Splash screen displays correctly', (WidgetTester tester) async {
@@ -16,7 +16,7 @@ void main() {
     await tester.pumpWidget(const MaterialApp(home: SplashScreen()));
 
     // Verify that the splash screen elements are displayed
-    expect(find.text('Private Classes App'), findsOneWidget);
+    expect(find.text('Noota'), findsOneWidget);
     expect(
       find.text('Connecting Students, Parents & Teachers'),
       findsOneWidget,

@@ -152,12 +152,22 @@ class AdminDashboard extends ConsumerWidget {
             children: [
               _buildActionCard(
                 context,
-                icon: Icons.verified_user,
-                title: 'Consent Logs',
-                subtitle: 'View consent records',
-                color: Colors.blue,
+                icon: Icons.people,
+                title: 'User Management',
+                subtitle: 'Manage users',
+                color: Colors.black87,
                 onTap: () {
-                  // TODO: Navigate to consent logs
+                  context.go('/admin/users');
+                },
+              ),
+              _buildActionCard(
+                context,
+                icon: Icons.security,
+                title: 'Consent Management',
+                subtitle: 'View consent records',
+                color: Colors.black87,
+                onTap: () {
+                  context.go('/admin/consent');
                 },
               ),
               _buildActionCard(
@@ -165,19 +175,9 @@ class AdminDashboard extends ConsumerWidget {
                 icon: Icons.gavel,
                 title: 'Disputes',
                 subtitle: 'Handle disputes',
-                color: Colors.red,
+                color: Colors.black87,
                 onTap: () {
-                  // TODO: Navigate to disputes
-                },
-              ),
-              _buildActionCard(
-                context,
-                icon: Icons.payment,
-                title: 'Payouts',
-                subtitle: 'Manage payouts',
-                color: Colors.green,
-                onTap: () {
-                  // TODO: Navigate to payouts
+                  context.go('/admin/disputes');
                 },
               ),
               _buildActionCard(
@@ -185,9 +185,9 @@ class AdminDashboard extends ConsumerWidget {
                 icon: Icons.analytics,
                 title: 'Analytics',
                 subtitle: 'View system analytics',
-                color: Colors.purple,
+                color: Colors.black87,
                 onTap: () {
-                  // TODO: Navigate to analytics
+                  context.go('/admin/analytics');
                 },
               ),
             ],

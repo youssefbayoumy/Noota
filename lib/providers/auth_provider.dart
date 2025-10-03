@@ -27,9 +27,54 @@ final userProfileProvider = FutureProvider<UserModel?>((ref) async {
   return await AuthService.getUserProfile(user.id);
 });
 
-// User role provider
+// User role provider (from metadata - fast)
 final userRoleProvider = Provider<UserRole?>((ref) {
   return AuthService.getCurrentUserRole();
+});
+
+// User role provider (from database - more reliable)
+final userRoleFromProfileProvider = FutureProvider<UserRole?>((ref) async {
+  final user = ref.watch(currentUserProvider);
+  if (user == null) return null;
+
+  return await AuthService.getUserRoleFromProfile();
+});
+
+// Permission checking providers
+final hasPermissionProvider = Provider.family<bool, String>((ref, permission) {
+  final role = ref.watch(userRoleProvider);
+  if (role == null) return false;
+  return role.hasPermission(permission);
+});
+
+final hasAnyPermissionProvider = Provider.family<bool, List<String>>((
+  ref,
+  permissions,
+) {
+  final role = ref.watch(userRoleProvider);
+  if (role == null) return false;
+  return role.hasAnyPermission(permissions);
+});
+
+final hasAllPermissionsProvider = Provider.family<bool, List<String>>((
+  ref,
+  permissions,
+) {
+  final role = ref.watch(userRoleProvider);
+  if (role == null) return false;
+  return role.hasAllPermissions(permissions);
+});
+
+// Route access provider
+final canAccessRouteProvider = Provider.family<bool, String>((ref, route) {
+  final role = ref.watch(userRoleProvider);
+  if (role == null) return false;
+  return role.canAccessRoute(route);
+});
+
+// Role validation provider
+final roleValidationProvider = FutureProvider<bool>((ref) async {
+  return await AuthService.validateUserRole();
 });
 
 // Authentication status provider

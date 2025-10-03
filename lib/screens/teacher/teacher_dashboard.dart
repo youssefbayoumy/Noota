@@ -135,19 +135,19 @@ class TeacherDashboard extends ConsumerWidget {
                 icon: Icons.school,
                 title: 'My Courses',
                 subtitle: 'Manage courses',
-                color: Colors.blue,
+                color: Colors.grey.shade800,
                 onTap: () {
-                  // TODO: Navigate to courses
+                  context.go('/teacher/courses');
                 },
               ),
               _buildActionCard(
                 context,
                 icon: Icons.qr_code_scanner,
-                title: 'Take Attendance',
-                subtitle: 'Scan QR codes',
-                color: Colors.green,
+                title: 'Sessions',
+                subtitle: 'Manage sessions',
+                color: Colors.grey.shade800,
                 onTap: () {
-                  // TODO: Open QR scanner
+                  context.go('/teacher/sessions');
                 },
               ),
               _buildActionCard(
@@ -155,9 +155,9 @@ class TeacherDashboard extends ConsumerWidget {
                 icon: Icons.grade,
                 title: 'Grades',
                 subtitle: 'Manage student grades',
-                color: Colors.orange,
+                color: Colors.grey.shade800,
                 onTap: () {
-                  // TODO: Navigate to grades
+                  context.go('/teacher/grading');
                 },
               ),
               _buildActionCard(
@@ -165,9 +165,9 @@ class TeacherDashboard extends ConsumerWidget {
                 icon: Icons.analytics,
                 title: 'Analytics',
                 subtitle: 'View performance data',
-                color: Colors.purple,
+                color: Colors.grey.shade800,
                 onTap: () {
-                  // TODO: Navigate to analytics
+                  context.go('/teacher/analytics');
                 },
               ),
             ],

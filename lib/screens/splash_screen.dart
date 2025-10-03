@@ -28,14 +28,14 @@ class SplashScreen extends ConsumerWidget {
                   ),
                 ],
               ),
-              child: const Icon(Icons.school, size: 60, color: Colors.blue),
+              child: const Icon(Icons.school, size: 60, color: Colors.grey),
             ),
 
             const SizedBox(height: 30),
 
             // App Name
             Text(
-              'Private Classes App',
+              'Noota',
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,

@@ -155,19 +155,23 @@ class AuthService {
 
   // Check if user has permission
   static bool hasPermission(String permission) {
-    final user = currentUser;
-    if (user == null) return false;
+    final role = getCurrentUserRole();
+    if (role == null) return false;
+    return role.hasPermission(permission);
+  }
 
-    // Get user role from metadata
-    final roleString = user.userMetadata?['role'] as String?;
-    if (roleString == null) return false;
+  // Check if user has any of the required permissions
+  static bool hasAnyPermission(List<String> permissions) {
+    final role = getCurrentUserRole();
+    if (role == null) return false;
+    return role.hasAnyPermission(permissions);
+  }
 
-    final role = UserRole.values.firstWhere(
-      (r) => r.name == roleString,
-      orElse: () => UserRole.student,
-    );
-
-    return role.permissions.contains(permission);
+  // Check if user has all required permissions
+  static bool hasAllPermissions(List<String> permissions) {
+    final role = getCurrentUserRole();
+    if (role == null) return false;
+    return role.hasAllPermissions(permissions);
   }
 
   // Get current user role
@@ -182,5 +186,49 @@ class AuthService {
       (r) => r.name == roleString,
       orElse: () => UserRole.student,
     );
+  }
+
+  // Get user role from profile (more reliable than metadata)
+  static Future<UserRole?> getUserRoleFromProfile() async {
+    final user = currentUser;
+    if (user == null) return null;
+
+    try {
+      final profile = await getUserProfile(user.id);
+      return profile?.role;
+    } catch (e) {
+      print('Error getting user role from profile: $e');
+      return null;
+    }
+  }
+
+  // Check if user can access a specific route
+  static bool canAccessRoute(String route) {
+    final role = getCurrentUserRole();
+    if (role == null) return false;
+    return role.canAccessRoute(route);
+  }
+
+  // Get user's highest priority role (for users with multiple roles)
+  static UserRole? getHighestPriorityRole(List<UserRole> roles) {
+    if (roles.isEmpty) return null;
+    return roles.reduce((a, b) => a.priority > b.priority ? a : b);
+  }
+
+  // Validate user role against database
+  static Future<bool> validateUserRole() async {
+    final user = currentUser;
+    if (user == null) return false;
+
+    try {
+      final profile = await getUserProfile(user.id);
+      if (profile == null) return false;
+
+      final metadataRole = user.userMetadata?['role'] as String?;
+      return metadataRole == profile.role.name;
+    } catch (e) {
+      print('Error validating user role: $e');
+      return false;
+    }
   }
 }

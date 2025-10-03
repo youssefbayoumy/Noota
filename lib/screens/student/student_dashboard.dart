@@ -90,9 +90,9 @@ class StudentDashboard extends ConsumerWidget {
                 icon: Icons.school,
                 title: 'My Courses',
                 subtitle: 'View enrolled courses',
-                color: Colors.blue,
+                color: Colors.grey.shade600,
                 onTap: () {
-                  // TODO: Navigate to courses
+                  context.go('/student/courses');
                 },
               ),
               _buildActionCard(
@@ -100,9 +100,9 @@ class StudentDashboard extends ConsumerWidget {
                 icon: Icons.qr_code,
                 title: 'Attendance QR',
                 subtitle: 'Show QR for attendance',
-                color: Colors.green,
+                color: Colors.grey.shade600,
                 onTap: () {
-                  // TODO: Show QR code
+                  context.go('/student/attendance');
                 },
               ),
               _buildActionCard(
@@ -110,9 +110,9 @@ class StudentDashboard extends ConsumerWidget {
                 icon: Icons.calendar_today,
                 title: 'Sessions',
                 subtitle: 'View upcoming sessions',
-                color: Colors.orange,
+                color: Colors.grey.shade600,
                 onTap: () {
-                  // TODO: Navigate to sessions
+                  context.go('/student/sessions');
                 },
               ),
               _buildActionCard(
@@ -120,9 +120,9 @@ class StudentDashboard extends ConsumerWidget {
                 icon: Icons.assessment,
                 title: 'Performance',
                 subtitle: 'View grades & progress',
-                color: Colors.purple,
+                color: Colors.grey.shade600,
                 onTap: () {
-                  // TODO: Navigate to performance
+                  context.go('/student/performance');
                 },
               ),
             ],

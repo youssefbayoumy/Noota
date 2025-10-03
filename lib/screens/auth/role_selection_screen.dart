@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../models/user_role.dart';
+import '../../utils/role_utils.dart';
 
 class RoleSelectionScreen extends StatelessWidget {
   const RoleSelectionScreen({super.key});
@@ -18,7 +19,7 @@ class RoleSelectionScreen extends StatelessWidget {
 
               // Header
               Text(
-                'Welcome to Private Classes App',
+                'Welcome to Noota',
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -44,11 +45,10 @@ class RoleSelectionScreen extends StatelessWidget {
                     _buildRoleCard(
                       context,
                       role: UserRole.student,
-                      icon: Icons.school,
-                      title: 'Student',
-                      subtitle:
-                          'Enroll in courses, attend sessions, track progress',
-                      color: Colors.blue,
+                      icon: RoleUtils.getRoleIcon(UserRole.student),
+                      title: UserRole.student.displayName,
+                      subtitle: UserRole.student.description,
+                      color: RoleUtils.getRoleColor(UserRole.student),
                     ),
 
                     const SizedBox(height: 20),
@@ -56,11 +56,10 @@ class RoleSelectionScreen extends StatelessWidget {
                     _buildRoleCard(
                       context,
                       role: UserRole.parent,
-                      icon: Icons.family_restroom,
-                      title: 'Parent',
-                      subtitle:
-                          'Monitor your child\'s progress and manage enrollments',
-                      color: Colors.green,
+                      icon: RoleUtils.getRoleIcon(UserRole.parent),
+                      title: UserRole.parent.displayName,
+                      subtitle: UserRole.parent.description,
+                      color: RoleUtils.getRoleColor(UserRole.parent),
                     ),
 
                     const SizedBox(height: 20),
@@ -68,11 +67,10 @@ class RoleSelectionScreen extends StatelessWidget {
                     _buildRoleCard(
                       context,
                       role: UserRole.teacher,
-                      icon: Icons.person,
-                      title: 'Teacher',
-                      subtitle:
-                          'Create courses, manage sessions, track attendance',
-                      color: Colors.orange,
+                      icon: RoleUtils.getRoleIcon(UserRole.teacher),
+                      title: UserRole.teacher.displayName,
+                      subtitle: UserRole.teacher.description,
+                      color: RoleUtils.getRoleColor(UserRole.teacher),
                     ),
 
                     const SizedBox(height: 20),
@@ -80,10 +78,10 @@ class RoleSelectionScreen extends StatelessWidget {
                     _buildRoleCard(
                       context,
                       role: UserRole.admin,
-                      icon: Icons.admin_panel_settings,
-                      title: 'Admin',
-                      subtitle: 'Manage the platform and resolve issues',
-                      color: Colors.purple,
+                      icon: RoleUtils.getRoleIcon(UserRole.admin),
+                      title: UserRole.admin.displayName,
+                      subtitle: UserRole.admin.description,
+                      color: RoleUtils.getRoleColor(UserRole.admin),
                     ),
                   ],
                 ),

@@ -8,9 +8,25 @@ import '../screens/auth/role_selection_screen.dart';
 import '../screens/auth/login_screen.dart';
 import '../screens/auth/signup_screen.dart';
 import '../screens/student/student_dashboard.dart';
+import '../screens/student/student_courses.dart';
+import '../screens/student/student_attendance.dart';
+import '../screens/student/student_sessions.dart';
+import '../screens/student/student_performance.dart';
 import '../screens/parent/parent_dashboard.dart';
+import '../screens/parent/parent_enrollments.dart';
+import '../screens/parent/parent_reports.dart';
+import '../screens/parent/parent_payments.dart';
+import '../screens/parent/parent_alerts.dart';
 import '../screens/teacher/teacher_dashboard.dart';
+import '../screens/teacher/teacher_courses.dart';
+import '../screens/teacher/teacher_sessions.dart';
+import '../screens/teacher/teacher_grading.dart';
+import '../screens/teacher/teacher_analytics.dart';
 import '../screens/admin/admin_dashboard.dart';
+import '../screens/admin/admin_users.dart';
+import '../screens/admin/admin_consent.dart';
+import '../screens/admin/admin_disputes.dart';
+import '../screens/admin/admin_analytics.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authStateProvider);
@@ -32,25 +48,27 @@ final routerProvider = Provider<GoRouter>((ref) {
         return '/role-selection';
       }
 
-      // Redirect based on user role
+      // Redirect based on user role with enhanced security
       if (userRole != null) {
-        switch (userRole) {
-          case UserRole.student:
-            if (state.uri.path.startsWith('/student')) return null;
-            return '/student/dashboard';
-          case UserRole.parent:
-            if (state.uri.path.startsWith('/parent')) return null;
-            return '/parent/dashboard';
-          case UserRole.teacher:
-            if (state.uri.path.startsWith('/teacher')) return null;
-            return '/teacher/dashboard';
-          case UserRole.admin:
-            if (state.uri.path.startsWith('/admin')) return null;
-            return '/admin/dashboard';
+        final currentPath = state.uri.path;
+
+        // Check if user can access the current route
+        if (!userRole.canAccessRoute(currentPath)) {
+          // Redirect to appropriate dashboard if accessing unauthorized route
+          return userRole.dashboardRoutes.first;
         }
+
+        // If accessing root or unauthorized route, redirect to dashboard
+        if (currentPath == '/' || !userRole.canAccessRoute(currentPath)) {
+          return userRole.dashboardRoutes.first;
+        }
+
+        // Allow access to current route
+        return null;
       }
 
-      return null;
+      // If no role found, redirect to role selection
+      return '/role-selection';
     },
     routes: [
       // Splash Screen
@@ -84,11 +102,43 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: '/student/dashboard',
         builder: (context, state) => const StudentDashboard(),
       ),
+      GoRoute(
+        path: '/student/courses',
+        builder: (context, state) => const StudentCoursesScreen(),
+      ),
+      GoRoute(
+        path: '/student/attendance',
+        builder: (context, state) => const StudentAttendanceScreen(),
+      ),
+      GoRoute(
+        path: '/student/sessions',
+        builder: (context, state) => const StudentSessionsScreen(),
+      ),
+      GoRoute(
+        path: '/student/performance',
+        builder: (context, state) => const StudentPerformanceScreen(),
+      ),
 
       // Parent Routes
       GoRoute(
         path: '/parent/dashboard',
         builder: (context, state) => const ParentDashboard(),
+      ),
+      GoRoute(
+        path: '/parent/enrollments',
+        builder: (context, state) => const ParentEnrollmentsScreen(),
+      ),
+      GoRoute(
+        path: '/parent/reports',
+        builder: (context, state) => const ParentReportsScreen(),
+      ),
+      GoRoute(
+        path: '/parent/payments',
+        builder: (context, state) => const ParentPaymentsScreen(),
+      ),
+      GoRoute(
+        path: '/parent/alerts',
+        builder: (context, state) => const ParentAlertsScreen(),
       ),
 
       // Teacher Routes
@@ -96,11 +146,43 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: '/teacher/dashboard',
         builder: (context, state) => const TeacherDashboard(),
       ),
+      GoRoute(
+        path: '/teacher/courses',
+        builder: (context, state) => const TeacherCoursesScreen(),
+      ),
+      GoRoute(
+        path: '/teacher/sessions',
+        builder: (context, state) => const TeacherSessionsScreen(),
+      ),
+      GoRoute(
+        path: '/teacher/grading',
+        builder: (context, state) => const TeacherGradingScreen(),
+      ),
+      GoRoute(
+        path: '/teacher/analytics',
+        builder: (context, state) => const TeacherAnalyticsScreen(),
+      ),
 
       // Admin Routes
       GoRoute(
         path: '/admin/dashboard',
         builder: (context, state) => const AdminDashboard(),
+      ),
+      GoRoute(
+        path: '/admin/users',
+        builder: (context, state) => const AdminUsersScreen(),
+      ),
+      GoRoute(
+        path: '/admin/consent',
+        builder: (context, state) => const AdminConsentScreen(),
+      ),
+      GoRoute(
+        path: '/admin/disputes',
+        builder: (context, state) => const AdminDisputesScreen(),
+      ),
+      GoRoute(
+        path: '/admin/analytics',
+        builder: (context, state) => const AdminAnalyticsScreen(),
       ),
     ],
   );

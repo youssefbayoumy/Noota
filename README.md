@@ -1,4 +1,4 @@
-# Private Classes App (Egypt) - Comprehensive Documentation
+# Noota - Private Classes Platform - Comprehensive Documentation
 
 A comprehensive Flutter application for managing private classes with role-based access for Students, Parents, Teachers, and Admins. Built with Supabase backend integration and designed specifically for the Egyptian private education market.
 
